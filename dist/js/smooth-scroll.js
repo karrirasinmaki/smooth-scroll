@@ -363,21 +363,6 @@
 	};
 
 	/**
-	 * On window scroll and resize, only run events at a rate of 15fps for better performance
-	 * @private
-	 * @param  {Function} eventTimeout Timeout function
-	 * @param  {Object} settings
-	 */
-	var eventThrottler = function (event) {
-		if ( !eventTimeout ) {
-			eventTimeout = setTimeout(function() {
-				eventTimeout = null; // Reset timeout
-				headerHeight = fixedHeader === null ? 0 : ( getHeight( fixedHeader ) + fixedHeader.offsetTop ); // Get the height of a fixed header if one exists
-			}, 66);
-		}
-	};
-
-	/**
 	 * Destroy the current initialization.
 	 * @public
 	 */
@@ -388,7 +373,6 @@
 
 		// Remove event listeners
 		document.removeEventListener( 'click', eventHandler, false );
-		root.removeEventListener( 'resize', eventThrottler, false );
 
 		// Reset varaibles
 		settings = null;
@@ -415,7 +399,6 @@
 
 		// When a toggle is clicked, run the click handler
 		document.addEventListener('click', eventHandler, false );
-		if ( fixedHeader ) { root.addEventListener( 'resize', eventThrottler, false ); }
 
 	};
 
